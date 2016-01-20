@@ -1,1 +1,20 @@
-hello 秀秀!
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="/lib/cookie.min.js"></script>
+    <script>
+        cookie.set({
+            selections: '123'
+        },{
+            path: '/'
+        });
+        var selections = cookie.get('selections');
+        alert(selections);
+    </script>
+</head>
+<body>
+
+</body>
+</html>
