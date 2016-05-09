@@ -19,8 +19,8 @@
     };
     (function () {
         var onBridgeReady = function () {
-            alert(WeixinJSBridge);
             WeixinJSBridge.on('menu:share:appmessage', function (argv) {
+                alert(WeixinJSBridge);
                 WeixinJSBridge.invoke('sendAppMessage', {
                     "appid": dataForWeixin.appId,
                     "img_url": dataForWeixin.MsgImg,
@@ -51,18 +51,6 @@
                     "url": dataForWeixin.url
                 }, function (res) {
                     (dataForWeixin.callback)();
-                });
-            });
-            WeixinJSBridge.on('menu:share:facebook', function (argv) {
-                (dataForWeixin.callback)();
-                WeixinJSBridge.invoke('shareFB', {
-                    "img_url": dataForWeixin.TLImg,
-                    "img_width": "120",
-                    "img_height": "120",
-                    "link": dataForWeixin.url,
-                    "desc": dataForWeixin.desc,
-                    "title": dataForWeixin.title
-                }, function (res) {
                 });
             });
         };
