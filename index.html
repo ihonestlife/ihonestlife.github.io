@@ -5,66 +5,74 @@
     <title>这是一个长达一万字的浓缩版标题 - MAKE.COM — 哈哈哈哈啊啊啊啊哈哈哈哈啊啊啊啊哈哈哈哈啊啊啊啊</title>
 </head>
 <body>
-    <script>
-        var dataForWeixin={
-            appId:"",
-            MsgImg:"http://oss-cn-hangzhou.aliyuncs.com/open-edit/productproduct/activity/9883/img/8/front.png",
-            TLImg:"http://oss-cn-hangzhou.aliyuncs.com/open-edit/productproduct/activity/9883/img/8/front.png",
-            url:"http://www.baidu.com",
-            title:"input title here",
-            desc:"input description here",
-            fakeid:"",
-            callback:function(){}
+<script>
+    var dataForWeixin = {
+        appId: "",
+        MsgImg: "http://oss-cn-hangzhou.aliyuncs.com/open-edit/productproduct/activity/9883/img/8/front.png",
+        TLImg: "http://oss-cn-hangzhou.aliyuncs.com/open-edit/productproduct/activity/9883/img/8/front.png",
+        url: "http://www.baidu.com",
+        title: "input title here",
+        desc: "input description here",
+        fakeid: "",
+        callback: function () {
+        }
+    };
+    (function () {
+        var onBridgeReady = function () {
+            alert(1);
+            WeixinJSBridge.on('menu:share:appmessage', function (argv) {
+                WeixinJSBridge.invoke('sendAppMessage', {
+                    "appid": dataForWeixin.appId,
+                    "img_url": dataForWeixin.MsgImg,
+                    "img_width": "120",
+                    "img_height": "120",
+                    "link": dataForWeixin.url,
+                    "desc": dataForWeixin.desc,
+                    "title": dataForWeixin.title
+                }, function (res) {
+                    (dataForWeixin.callback)();
+                });
+            });
+            WeixinJSBridge.on('menu:share:timeline', function (argv) {
+                (dataForWeixin.callback)();
+                WeixinJSBridge.invoke('shareTimeline', {
+                    "img_url": dataForWeixin.TLImg,
+                    "img_width": "120",
+                    "img_height": "120",
+                    "link": dataForWeixin.url,
+                    "desc": dataForWeixin.desc,
+                    "title": dataForWeixin.title
+                }, function (res) {
+                });
+            });
+            WeixinJSBridge.on('menu:share:weibo', function (argv) {
+                WeixinJSBridge.invoke('shareWeibo', {
+                    "content": dataForWeixin.title,
+                    "url": dataForWeixin.url
+                }, function (res) {
+                    (dataForWeixin.callback)();
+                });
+            });
+            WeixinJSBridge.on('menu:share:facebook', function (argv) {
+                (dataForWeixin.callback)();
+                WeixinJSBridge.invoke('shareFB', {
+                    "img_url": dataForWeixin.TLImg,
+                    "img_width": "120",
+                    "img_height": "120",
+                    "link": dataForWeixin.url,
+                    "desc": dataForWeixin.desc,
+                    "title": dataForWeixin.title
+                }, function (res) {
+                });
+            });
         };
-        (function(){
-            var onBridgeReady=function(){
-                WeixinJSBridge.on('menu:share:appmessage', function(argv){
-                    WeixinJSBridge.invoke('sendAppMessage',{
-                        "appid":dataForWeixin.appId,
-                        "img_url":dataForWeixin.MsgImg,
-                        "img_width":"120",
-                        "img_height":"120",
-                        "link":dataForWeixin.url,
-                        "desc":dataForWeixin.desc,
-                        "title":dataForWeixin.title
-                    }, function(res){(dataForWeixin.callback)();});
-                });
-                WeixinJSBridge.on('menu:share:timeline', function(argv){
-                    (dataForWeixin.callback)();
-                    WeixinJSBridge.invoke('shareTimeline',{
-                        "img_url":dataForWeixin.TLImg,
-                        "img_width":"120",
-                        "img_height":"120",
-                        "link":dataForWeixin.url,
-                        "desc":dataForWeixin.desc,
-                        "title":dataForWeixin.title
-                    }, function(res){});
-                });
-                WeixinJSBridge.on('menu:share:weibo', function(argv){
-                    WeixinJSBridge.invoke('shareWeibo',{
-                        "content":dataForWeixin.title,
-                        "url":dataForWeixin.url
-                    }, function(res){(dataForWeixin.callback)();});
-                });
-                WeixinJSBridge.on('menu:share:facebook', function(argv){
-                    (dataForWeixin.callback)();
-                    WeixinJSBridge.invoke('shareFB',{
-                        "img_url":dataForWeixin.TLImg,
-                        "img_width":"120",
-                        "img_height":"120",
-                        "link":dataForWeixin.url,
-                        "desc":dataForWeixin.desc,
-                        "title":dataForWeixin.title
-                    }, function(res){});
-                });
-            };
-            if(document.addEventListener){
-                document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
-            }else if(document.attachEvent){
-                document.attachEvent('WeixinJSBridgeReady'   , onBridgeReady);
-                document.attachEvent('onWeixinJSBridgeReady' , onBridgeReady);
-            }
-        })();
-    </script>
+        if (document.addEventListener) {
+            document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+        } else if (document.attachEvent) {
+            document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
+            document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+        }
+    })();
+</script>
 </body>
 </html>
