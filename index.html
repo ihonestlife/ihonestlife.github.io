@@ -19,7 +19,7 @@
     };
     (function () {
         var onBridgeReady = function () {
-            alert(1);
+            alert(WeixinJSBridge);
             WeixinJSBridge.on('menu:share:appmessage', function (argv) {
                 WeixinJSBridge.invoke('sendAppMessage', {
                     "appid": dataForWeixin.appId,
